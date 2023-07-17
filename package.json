@@ -1,0 +1,73 @@
+{
+  "name": "my-electron-app",
+  "version": "1.0.0",
+  "description": "CliniShare",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "dev": "cd ./backend && nodemon ./src/main.js",
+    "backend": "cd ./backend && node ./src/main.js",
+    "backendReact": "node backend/src/appFrontend.js",
+    "rcb": "npm run --prefix frontend/ start",
+    "rc": "BROWSER=none npm run --prefix frontend/ start",
+    "most": "concurrently -k \"npm:rcb\" \"npm:dev\" \"npm:backendReact\"",
+    "all": "concurrently -k  \"npm:rc\" \"npm:electron\" \"npm:dev\" ",
+    "prod": "concurrently -k \"npm:electron\" \"npm:backend\" \"npm:backendReact\"",
+    "docker": "concurrently \"docker-compose build && docker-compose up\" \"npm:electron\" ",
+    "after-docker": "concurrently \"docker-compose up\" \"npm:electron\" ",
+    "compose-backends": "docker-compose build backend1 backend2 backend3 postgres",
+    "electron": "wait-on tcp:5000 && electron .",
+    "electron2": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.65",
+    "@electron-forge/maker-deb": "^6.0.0-beta.65",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.65",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
+    "@electron-forge/maker-zip": "^6.0.0-beta.65",
+    "electron": "^20.1.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "axios": "^0.26.0",
+    "concurrently": "^7.5.0",
+    "cors": "^2.8.5",
+    "database-clinishare": "file:backend",
+    "date-fns": "^2.29.3",
+    "electron-squirrel-startup": "^1.0.0",
+    "pg-hstore": "^2.3.4",
+    "wait-on": "^6.0.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "my_electron_app"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}

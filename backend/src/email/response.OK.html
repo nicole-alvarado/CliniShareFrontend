@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmación de email</title>
+    <link
+      rel="stylesheet"
+      href="../../node_modules/jq-fakeloader/dist/fakeLoader.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../node_modules/jq-fakeloader/dist/fakeLoader.min.js"></script>
+
+    <style>
+      h1 {
+        color: #111;
+        font-family: "Helvetica Neue", sans-serif;
+        font-size: 275px;
+        font-weight: bold;
+        letter-spacing: -1px;
+        line-height: 1;
+        text-align: center;
+      }
+      
+      body{
+        background: rgb(53, 231, 121);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fakeLoader"></div>
+
+    <div class="texto"><h1>Todo ok</h1></div>
+    <script>
+      $.fakeLoader({ timeToHide: 1000, spinner: "spinner4" });
+    </script>
+  </body>
+</html>

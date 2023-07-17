@@ -1,0 +1,8 @@
+almacenar fecha de nacimiento de paciente
+quitar uuid de paciente
+tener en cuenta matriculas provinciales/nacionales, registrar por mail (pensar en una tarjeta que sea confirmar mail)
+fecha de vencimiento de eventos importantes
+mostrar fechas de eventos, mostrar un check si es importante
+
+sincronoizar tambien medicos
+plantear tabla nueva medicos en base de datos

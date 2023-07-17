@@ -1,0 +1,55 @@
+version: '2'
+services:  
+
+  postgres:
+    build:
+      context: ./backend/dbDocker
+
+  backend1:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: "node ./src/main.js"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://clinishare:password@postgres/clinisharedb1
+      TESTING: "true"
+      TESTING_DATA: "1"
+  
+
+  backend2:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    command: "node ./src/main.js"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://clinishare:password@postgres/clinisharedb2
+      TESTING: "true"
+      TESTING_DATA: "2"
+      
+  backend3:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: "node ./src/main.js"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://clinishare:password@postgres/clinisharedb3
+      TESTING: "true"
+      TESTING_DATA: "3"
+
+
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    command: "npx serve build -l 5000"
