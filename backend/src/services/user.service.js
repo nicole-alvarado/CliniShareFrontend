@@ -30,7 +30,7 @@ async function login(email, password) {
     const medicoEncontrado = await MedicosUsuariosService.getMedicoByEmail(
       email
     );
-      
+
     if (!medicoEncontrado) {
       return {};
     }
@@ -76,6 +76,51 @@ function quitarPassword(medico) {
   return medicoFiltrado;
 }
 
+// async function register(medico) {
+//   try {
+//     const hash = await generateHash(medico.password);
+//     const newMedico = { ...medico, password: hash };
+
+//     // esto deberia ser una TRANSACCION
+//     let responseUser = {};
+
+//     await sequelize.transaction(async (t) => {
+//       const userBuscado = await MedicoUsuario.findOne({
+//         where: {
+//           email: medico.email,
+//         },
+//       });
+
+//       if (userBuscado) {
+//         if (!userBuscado.verificado) {
+//           await userBuscado.destroy({ transaction: t });
+//         } else {
+//           return false;
+//         }
+//       }
+
+//       responseUser = await MedicoUsuario.create(newMedico, {
+//         transaction: t,
+//       });
+
+//       //le creamos un token para que valide su usuario luego
+//       const tokenNuevo = await TokenUsuarioService.nuevoToken(responseUser, t);
+
+//       //le enviamos el token al mail para que pueda verificarlo
+//       await sendVerificationEmail(responseUser.email, tokenNuevo.id);
+//     });
+
+//     //no le enviamos el hash al usuario para que no pueda bruteforcearlo
+//     console.log("usuario a agregar: ", responseUser);
+//     responseUser = quitarPassword(responseUser);
+
+//     return responseUser;
+//   } catch (error) {
+//     console.log(error);
+//     return {};
+//   }
+// }
+
 async function register(medico) {
   try {
     const hash = await generateHash(medico.password);
@@ -85,29 +130,10 @@ async function register(medico) {
     let responseUser = {};
 
     await sequelize.transaction(async (t) => {
-      const userBuscado = await MedicoUsuario.findOne({
-        where: {
-          email: medico.email,
-        },
-      });
-
-      if (userBuscado) {
-        if (!userBuscado.verificado) {
-          await userBuscado.destroy({ transaction: t });
-        } else {
-          return false;
-        }
-      }
-
       responseUser = await MedicoUsuario.create(newMedico, {
         transaction: t,
       });
-
-      //le creamos un token para que valide su usuario luego
-      const tokenNuevo = await TokenUsuarioService.nuevoToken(responseUser, t);
-
-      //le enviamos el token al mail para que pueda verificarlo
-      await sendVerificationEmail(responseUser.email, tokenNuevo.id);
+      await Medico.create(newMedico, { transaction: t });
     });
 
     //no le enviamos el hash al usuario para que no pueda bruteforcearlo
@@ -119,6 +145,7 @@ async function register(medico) {
     return {};
   }
 }
+
 
 async function modify(medico) {
   try {

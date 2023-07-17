@@ -34,8 +34,8 @@ instance.interceptors.request.use(
   }
 );
 
-let response = await instance.get("https://localhost:3000/bad");
+let response = await instance.get("http://localhost:3000/bad");
 console.log(response.data);
 
-response = await instance.get("https://localhost:3000/good");
+response = await instance.get("http://localhost:3000/good");
 console.log(response.data);

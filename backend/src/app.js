@@ -28,10 +28,14 @@ app.use(pacientesRoutes);
 app.use(eventosRoutes);
 app.use(conflictosRoutes);
 
-const server = utils.createHTTPSserver(
-  cryptoData.privateKey,
-  cryptoData.certificateSigned,
-  app
-);
+import http from "http";
+
+const server = http.createServer(app);
+
+// const server = utils.createHTTPSserver(
+//   cryptoData.privateKey,
+//   cryptoData.certificateSigned,
+//   app
+// );
 
 export default server;

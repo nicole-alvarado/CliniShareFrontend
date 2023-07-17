@@ -18,14 +18,14 @@ export async function sincronizar(computadora) {
   const computadoraLocal = await getComputadora();
 
   const postSincronicemosString =
-    "https://" +
+    "http://" +
     computadora.ip.toString().trim() +
     ":" +
     SERVER_BD_PORT.toString().trim() +
     "/sincronizar";
 
   const getDNISyNacimientosString =
-    "https://" +
+    "http://" +
     computadora.ip.toString().trim() +
     ":" +
     SERVER_BD_PORT.toString().trim() +
@@ -88,14 +88,14 @@ export async function sincronizarNonLooping(computadora) {
   const computadoraLocal = await getComputadora();
   
   const postSincronicemosString =
-    "https://" +
+    "http://" +
     computadora.ip.toString().trim() +
     ":" +
     SERVER_BD_PORT.toString().trim() +
     "/sincronizar";
 
   const getDNISyNacimientosString =
-    "https://" +
+    "http://" +
     computadora.ip.toString().trim() +
     ":" +
     SERVER_BD_PORT.toString().trim() +

@@ -11,7 +11,7 @@ const createWindow = () => {
   win.setIcon(patToIcon);
   win.show();
 
-  win.loadURL("https://localhost:5000");
+  win.loadURL("http://localhost:5000");
 };
 
 app.whenReady().then(() => {

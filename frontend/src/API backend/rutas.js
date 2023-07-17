@@ -34,7 +34,7 @@ const rutas = {
 };
 
 for (let ruta in rutas) {
-  rutas[ruta] = "https://localhost:" + puertoServidorBackend + "/" + rutas[ruta];
+  rutas[ruta] = "http://localhost:" + puertoServidorBackend + "/" + rutas[ruta];
 }
 
 export default rutas;
